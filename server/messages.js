@@ -36,9 +36,12 @@ export async function filterMessage (params) {
         data = data.filter((item) => params.policyWithIn.every(item => !res.hasOwnProperty(item)))
     }
 
-    const checkPhoto = params.policyWithIn.length == 1 && params.policyWithIn == 'photo' && params.policyWithout.length == 0
+    const checkPhoto = params?.policyWithIn?.length == 1
+        && params.policyWithIn[0] == 'photo'
+        && params?.policyWithout?.length == 0
 
-    if (!checkPhoto) return data
+    if (!checkPhoto)
+        return data
 
     let result = []
 

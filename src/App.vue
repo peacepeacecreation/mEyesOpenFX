@@ -2,33 +2,30 @@
     <div>
         <div class="message-filter">
             <div class="field">
-                <label class="label">Від</label>
+                <label class="label">FROM</label>
                 <v-select
                     v-model="params.from"
                     :options="['Nervas']"
-                    class="select"
                 />
             </div>
 
 
             <div class="field">
-                <label class="label">З</label>
+                <label class="label">With Only</label>
                 <v-select
                     v-model="params.policyWithIn"
                     :options="['photo']"
                     multiple
-                    class="select"
                 />
             </div>
 
 
             <div class="field">
-                <label class="label">Без</label>
+                <label class="label">Without</label>
                 <v-select
                     v-model="params.policyWithout"
                     :options="['photo']"
                     multiple
-                    class="select"
                 />
             </div>
         </div>
@@ -69,8 +66,9 @@
         methods: {
             async fetch() {
                 try {
+                    const url = 'localhost:8080' //'http://185.237.206.20:8080'
                     const { data } = await axios
-                        .get('http://185.237.206.20:8080/messages', { params: this.params })
+                        .get(`${url}/messages`, { params: this.params })
 
                     this.data = data
                     //this.allMessages()
@@ -124,8 +122,8 @@
     width: 100%;
     margin: 5px;
 }
-.message-filter .select {
-    width: 100%);
+.message-filter .v-select {
+    width: 100%;
 }
 .message-filter .label {
     margin-bottom: 5px;
