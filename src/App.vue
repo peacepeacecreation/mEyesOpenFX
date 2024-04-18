@@ -36,7 +36,7 @@
             class="messages-item">
             <span>{{ getDate(item.date) }}</span>
             <span>{{ getTime(item.date) }}</span>
-            <img v-if="item.photo" :src="`http://vps63345.hyperhost.name/${item.photo}`" alt="(ㆆ_ㆆ) (ㆆ_ㆆ) (ㆆ_ㆆ) Фото нема. Пошукайте його в іншому місці. (ㆆ_ㆆ) (ㆆ_ㆆ) (ㆆ_ㆆ)">
+            <img v-if="item.photo" :src="`http://vps63345.hyperhost.name/${item.photo}`" alt="😬 😬 😬 😬 😬 Photo not found 😬 😬 😬 😬 😬" style="font-size: 30px">
 
             <span v-if="item.text">{{ item.text }}</span>
         </div>
