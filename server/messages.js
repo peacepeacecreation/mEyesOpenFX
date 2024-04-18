@@ -22,9 +22,23 @@ const canAccessPhoto = async (photo) => {
 }
 
 export async function filterMessage (params) {
-    const data = messages
-        .filter((item) => item.from == params.from)
-        .filter((item) => item.photo)
+    let data = messages;
+
+    if (params.from) {
+        data = data.filter((item) => item.from == params.from)
+    }
+
+    if (params.policyWithIn) {
+        data = data.filter((item) => params.policyWithIn.every(item => res.hasOwnProperty(item)))
+    }
+
+    if (params.policyWithout) {
+        data = data.filter((item) => params.policyWithIn.every(item => !res.hasOwnProperty(item)))
+    }
+
+    const checkPhoto = params.policyWithIn.length == 1 && params.policyWithIn == 'photo' && params.policyWithout.length == 0
+
+    if (!checkPhoto) return data
 
     let result = []
 
