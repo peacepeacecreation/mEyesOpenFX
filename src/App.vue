@@ -32,7 +32,7 @@
             async fetch() {
                 try {
                     const { data } = await axios
-                        .get('http://localhost:8080/messages', { from: 'Nervas' })
+                        .get('http://185.237.206.20:8080/messages', { from: 'Nervas' })
 
                     this.data = data
 
