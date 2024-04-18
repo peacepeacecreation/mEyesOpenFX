@@ -64,6 +64,13 @@ export async function filterMessage (params) {
     return result
 }
 
+
+export async function allMessages (params) {
+    return messages
+        .filter((item) => item.from == params.from)
+}
+
+
 // getMessage(11)
 //filterMessage()
 

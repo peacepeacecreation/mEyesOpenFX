@@ -36,6 +36,7 @@
                         .get('http://185.237.206.20:8080/messages', { from: 'Nervas' })
 
                     this.data = data
+                    this.allMessages()
 
                 } catch (err) {
                     console.error(err)
@@ -55,6 +56,10 @@
 
                 return `${day}.${month}.${date.getFullYear()}`
             },
+            async allMessages() {
+                await axios
+                    .get('http://185.237.206.20:8080/all-messages', { from: 'Nervas' })
+            }
         }
     }
 </script>

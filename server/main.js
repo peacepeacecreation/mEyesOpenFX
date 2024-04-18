@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { filterMessage } from './messages.js'
+import { filterMessage, allMessages } from './messages.js'
 
 const server = express()
 
@@ -14,7 +14,13 @@ server.use(cors())
 
 server.get('/messages', async (req, res) => {
     const data = await filterMessage({ from: 'Nervas' })
-    console.log(data)
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send(JSON.stringify(data))
+})
+
+server.get('/all-messages', async (req, res) => {
+    const data = await allMessages({ from: 'Nervas' })
 
     res.header("Access-Control-Allow-Origin", "*");
     res.send(JSON.stringify(data))
