@@ -67,8 +67,7 @@
             async fetch() {
                 try {
                     const url = 'http://185.237.206.20:8080'
-                    const { data } = await axios
-                        .get(`${url}/messages`, { params: this.params })
+                    const { data } = await axios.get(`${url}/messages`, { params: this.params })
 
                     this.data = data
                     //this.allMessages()
