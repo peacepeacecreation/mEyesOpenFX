@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon ./server/main.js",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "start": "pm2 start ./server/main.js",
+    "stop": "pm2 stop ./server/main.js"
   },
   "author": "",
   "license": "ISC",
