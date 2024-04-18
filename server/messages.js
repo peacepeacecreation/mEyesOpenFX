@@ -28,34 +28,34 @@ export async function filterMessage (params) {
         data = data.filter((item) => item.from == params.from)
     }
 
-    if (params.policyWithIn) {
-        data = data.filter((item) => params.policyWithIn.every(item => res.hasOwnProperty(item)))
+    if (params.policyWithIn && params.policyWithIn.length > 0) {
+        data = data.filter((item) => params.policyWithIn.every((option) => item.hasOwnProperty(option)))
     }
 
-    if (params.policyWithout) {
-        data = data.filter((item) => params.policyWithout.every(item => !res.hasOwnProperty(item)))
+    if (params.policyWithout && params.policyWithout.length > 0) {
+        data = data.filter((item) => params.policyWithout.every((option) => !item.hasOwnProperty(option)))
     }
 
     let result = []
-    const getMessage = async (index) => {
+    const setResult = async (index) => {
         const item = data[index]
 
-        if (item.hasOwnProperty(photo)) {
-            const hasAccess = await canAccessPhoto(item.photo)
-            if (hasAccess)
-                result.push(item)
-        } else {
-            result.push(item)
-        }
+        // if (item.hasOwnProperty('photo')) {
+        //     const hasAccess = await canAccessPhoto(item.photo)
+        //     if (hasAccess)
+        //         result.push(item)
 
-        return hasAccess
+        //     return
+        // }
+
+        result.push(item)
     }
 
     let count = data.length
 
     const cycleMessages = async () => {
         if (count !== 0) {
-            await getMessage(count - 1)
+            await setResult(count - 1)
 
             count = count - 1
             await cycleMessages()
@@ -65,6 +65,8 @@ export async function filterMessage (params) {
     }
 
     await cycleMessages()
+
+    console.log(result)
 
     return result
 }
@@ -76,7 +78,7 @@ export async function allMessages (params) {
 }
 
 
-// getMessage(11)
+// setResult(11)
 //filterMessage()
 
 

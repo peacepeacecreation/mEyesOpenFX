@@ -13,7 +13,7 @@ const server = express()
 server.use(cors())
 
 server.get('/messages', async (req, res) => {
-    const data = await filterMessage(req.params)
+    const data = await filterMessage(req.query)
 
     res.header("Access-Control-Allow-Origin", "*");
     res.send(JSON.stringify(data))
