@@ -3,6 +3,7 @@
         <div v-for="(item, index) in sortData"
             :key="index"
             class="messages-item">
+            <span>{{ getDate(item.date) }}</span>
             <span>{{ getTime(item.date) }}</span>
             <img :src="`http://vps63345.hyperhost.name/photos/${item.photo}`" alt="">
             <span v-if="item.text">{{ item.text }}</span>
@@ -42,13 +43,17 @@
             },
             getTime(value) {
                 const date = new Date(value)
+                return `${date.getHours()}:${date.getMinutes()}`
+            },
+            getDate(value) {
+                const date = new Date(value)
                 let day = date.getDate()
                 let month = date.getMonth() + 1
 
                 day = day < 10 ? '0' + day : day
                 month = month < 10 ? '0' + month : '' + month
 
-                return `${date.getHours()}:${date.getMinutes()} ${day}.${month}.${date.getFullYear()}р.`
+                return `${day}.${month}.${date.getFullYear()}`
             },
         }
     }
