@@ -9,7 +9,7 @@ const { messages } = JSON.parse(
 );
 
 const canAccessPhoto = async (photo) => {
-    const url = `${config.get('SERVER_PATH')}/photos/${photo}`
+    const url = `${config.get('SERVER_PATH')}/${photo}`
     const data = await fetch(url)
         .then(async (response) => {
             return await response.blob()

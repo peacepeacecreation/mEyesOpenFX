@@ -5,7 +5,7 @@
             class="messages-item">
             <span>{{ getDate(item.date) }}</span>
             <span>{{ getTime(item.date) }}</span>
-            <img :src="`http://vps63345.hyperhost.name/photos/${item.photo}`" alt="">
+            <img :src="`http://vps63345.hyperhost.name/${item.photo}`" alt="">
             <span v-if="item.text">{{ item.text }}</span>
         </div>
     </div>
