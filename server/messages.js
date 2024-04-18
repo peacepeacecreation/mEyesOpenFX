@@ -33,29 +33,19 @@ export async function filterMessage (params) {
     }
 
     if (params.policyWithout) {
-        data = data.filter((item) => params.policyWithIn.every(item => !res.hasOwnProperty(item)))
+        data = data.filter((item) => params.policyWithout.every(item => !res.hasOwnProperty(item)))
     }
 
-    const checkPhoto = params?.policyWithIn?.length == 1
-        && params.policyWithIn[0] == 'photo'
-        && params?.policyWithout?.length == 0
-
-    if (!checkPhoto)
-        return data
-
     let result = []
-
     const getMessage = async (index) => {
         const item = data[index]
 
-        const hasAccess = await canAccessPhoto(item.photo)
-
-        //console.log(hasAccess)
-        if (hasAccess) {
-            //await init(item, index)
-            result.push(item)
+        if (item.hasOwnProperty(photo)) {
+            const hasAccess = await canAccessPhoto(item.photo)
+            if (hasAccess)
+                result.push(item)
         } else {
-            //console.log('error')
+            result.push(item)
         }
 
         return hasAccess
@@ -75,8 +65,6 @@ export async function filterMessage (params) {
     }
 
     await cycleMessages()
-
-    console.log(result)
 
     return result
 }
