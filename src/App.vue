@@ -16,6 +16,7 @@
                     v-model="params.policyWithIn"
                     :options="['photo']"
                     multiple
+                    @input="fetch()"
                 />
             </div>
 
@@ -26,6 +27,7 @@
                     v-model="params.policyWithout"
                     :options="['photo']"
                     multiple
+                    @input="fetch()"
                 />
             </div>
         </div>
@@ -34,8 +36,7 @@
             class="messages-item">
             <span>{{ getDate(item.date) }}</span>
             <span>{{ getTime(item.date) }}</span>
-            <img v-if="item.photo" :src="`http://vps63345.hyperhost.name/${item.photo}`" alt="">
-            <span v-else>(ㆆ_ㆆ) (ㆆ_ㆆ) (ㆆ_ㆆ) Фото нема. Пошукайте його в іншому місці. (ㆆ_ㆆ) (ㆆ_ㆆ) (ㆆ_ㆆ)</span>
+            <img v-if="item.photo" :src="`http://vps63345.hyperhost.name/${item.photo}`" alt="(ㆆ_ㆆ) (ㆆ_ㆆ) (ㆆ_ㆆ) Фото нема. Пошукайте його в іншому місці. (ㆆ_ㆆ) (ㆆ_ㆆ) (ㆆ_ㆆ)">
 
             <span v-if="item.text">{{ item.text }}</span>
         </div>
