@@ -17,6 +17,7 @@
     "@vue/server-renderer": "^3.4.23",
     "axios": "^1.6.8",
     "config": "^3.3.11",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "vue": "^3.4.23"
   },
