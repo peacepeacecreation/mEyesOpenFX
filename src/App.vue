@@ -16,12 +16,21 @@
                     v-model="params.policyWithIn"
                     :options="['photo']"
                     multiple
-                    @input="fetch()"
+                    @update:modelValue="fetch()"
+                />
+            </div>
+
+            <div class="field">
+                <label class="label">DEVICE</label>
+                <v-select
+                    v-model="params.device"
+                    :options="['ALL', 'DESKTOP', 'PHONE']"
+                    @update:modelValue="fetch"
                 />
             </div>
 
 
-            <div class="field">
+            <!-- <div class="field">
                 <label class="label">Without</label>
                 <v-select
                     v-model="params.policyWithout"
@@ -29,16 +38,23 @@
                     multiple
                     @input="fetch()"
                 />
-            </div>
+            </div> -->
         </div>
+
         <div v-for="(item, index) in sortData"
             :key="index"
             class="messages-item">
-            <span>{{ getDate(item.date) }}</span>
-            <span>{{ getTime(item.date) }}</span>
-            <img v-if="item.photo" :src="`http://vps63345.hyperhost.name/${item.photo}`" alt="😬 😬 😬 😬 😬 Photo not found 😬 😬 😬 😬 😬" style="font-size: 30px">
+            <div class="messages-item-header">
+                <template v-if="index == 0 || sortData[index - 1].date_unixtime != item.date_unixtime">
+                    <span>{{ getDate(item.date) }}</span>
+                    <span>{{ getTime(item.date) }}</span>
+                </template>
+            </div>
+            <img v-if="item.photo" :src="`http://vps63345.hyperhost.name/${item.photo}`" alt="" style="font-size: 5px">
 
+            <!-- <span v-if="item.reply_to_message_id">Reply : {{ item.reply_to_message_id }}</span> -->
             <span v-if="item.text">{{ item.text }}</span>
+
         </div>
     </div>
 </template>
@@ -55,6 +71,8 @@
                     from: 'Nervas',
                     policyWithIn: ['photo'],
                     policyWithout: [],
+                    device: 'DESKTOP',
+                    exclusionDevice: [251352, 251429, 252747, 252753, 253508, 253511, 253809, 255317, 259754, 260634, 260633, 260672]
                 },
             }
         },
@@ -73,6 +91,24 @@
                     const { data } = await axios.get(`${url}/messages`, { params: this.params })
 
                     this.data = data
+
+                    // let count = 0
+
+                    // const test = data.reduce((res, item, index) => {
+                    //     if ((index + 1) > (30 * (count + 1))) {
+                    //         count = count + 1
+                    //     }
+
+                    //     if (!res[count]) res.push([])
+
+                    //     res[count].push(item.photo)
+
+                    //     return res
+                    // }, [])
+
+                    // test.forEach((item) => {
+                    //     console.log(item.map((text) => `cp ${text} newPhoto`).join(' && '))
+                    // })
                     //this.allMessages()
 
                 } catch (err) {
@@ -81,7 +117,13 @@
             },
             getTime(value) {
                 const date = new Date(value)
-                return `${date.getHours()}:${date.getMinutes()}`
+                let hour = date.getHours()
+                hour = hour < 10 ? '0' + hour : hour
+
+                let minutes = date.getHours()
+                minutes = minutes < 10 ? '0' + minutes : minutes
+
+                return `${hour}:${minutes}`
             },
             getDate(value) {
                 const date = new Date(value)
@@ -109,6 +151,28 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 5px;
+    margin-bottom: 10px;
+    transition: .2s;
+    box-shadow: 0px 0px 10px -1px #ddd;
+}
+
+.messages-item:hover {
+    box-shadow: 0px 0px 10px -1px #6f6f6f;
+}
+
+.messages-item-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.messages-item-header span {
+    padding: 5px 10px 0px;
+}
+
+.messages-item img {
+    width: 100%;
 }
 .message-filter {
     display: flex;

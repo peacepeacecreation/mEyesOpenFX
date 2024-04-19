@@ -36,13 +36,19 @@ export async function filterMessage (params) {
         data = data.filter((item) => params.policyWithout.every((option) => !item.hasOwnProperty(option)))
     }
 
+    if (params.device == 'DESKTOP') {
+        data = data.filter((item) => params.exclusionDevice.includes(item.id) || item.width > item.height)
+    } else if (params.device == 'PHONE') {
+        data = data.filter((item) => params.exclusionDevice.includes(item.id) || item.width < item.height)
+    }
+
     let result = []
     const setResult = async (index) => {
         const item = data[index]
 
         // if (item.hasOwnProperty('photo')) {
         //     const hasAccess = await canAccessPhoto(item.photo)
-        //     if (hasAccess)
+        //     if (!hasAccess)
         //         result.push(item)
 
         //     return
